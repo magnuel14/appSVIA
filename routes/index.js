@@ -18,5 +18,9 @@ router.get('/', function (req, res, next) {
 // visu.visu.verFragmento, se llama a la varibale antes creada y 
 //se le asigna el nombre de la funcion ver fragmento, este debe esxitir en la clase instanciada
 //router.get('/Direccion', visu.verFragmento);
+router.get('/usuario', visu.verUsu);
+router.get('/login', visu.verlogin);
+router.get('/register', visu.verRegister);
+
 
 module.exports = router;
