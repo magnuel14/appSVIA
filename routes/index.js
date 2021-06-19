@@ -21,6 +21,8 @@ router.get('/', function (req, res, next) {
 router.get('/usuario', visu.verUsu);
 router.get('/login', visu.verlogin);
 router.get('/register', visu.verRegister);
+router.get('/rcamera', visu.verCamera);
+
 
 
 module.exports = router;

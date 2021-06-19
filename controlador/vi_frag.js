@@ -27,5 +27,13 @@ class vi_frag {
         });
 
     }
+    verCamera(req, res) {
+        res.render('index', {
+            title: 'Form',
+            fragmentos: "comple/rCmara"
+
+        });
+
+    }
 }
 module.exports = vi_frag;
