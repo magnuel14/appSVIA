@@ -6,31 +6,28 @@
 
             <center>
                 <form id="formulario" method="POST" action="/">
-                    <div class="bg-dark" >
+                    <div style="background-color: #040b14e7">
                         <h1 class="text-light">Crear cuenta</h1>
                     </div>
+                    <p></p>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Nombre</label>
                         <input type="text" class="form-control" id="nombreU" name="nombreU" aria-describedby="nameHelp"
                             placeholder="Nombre del usuario" required>
-                        <small id="nameHelp" class="form-text text-muted">Escriba su nombre.</small>
                     </div>
                    
                       <div class="form-group">
                         <label for="exampleInputEmail1">Apellido</label>
                         <input type="text" class="form-control" id="apellidoU" name="apellidoU" aria-describedby="apeHelp"
                             placeholder="Apellido del usuario" required>
-                        <small id="apeHelp" class="form-text text-muted">Escriba su apellido.</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Correo electronico </label>
+                        <label for="exampleInputEmail1">Correo electrónico </label>
                         <input type="email" class="form-control" id="correo" name="correo" aria-describedby="emailHelp"
-                            placeholder="Ingrese el correo electronico personal" required>
-                        <small id="emailHelp" class="form-text text-muted">Ingrese el correo electronico
-                            personal.</small>
+                            placeholder="Ingrese el correo electrónico" required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Clave </label>
+                        <label for="exampleInputPassword1">Contraseña </label>
                         <input type="password" class="form-control" name="clave" id="exampleInputPassword1"
                             placeholder="Contraseña" required>
                     </div>
@@ -39,11 +36,12 @@
                         <input type="password" class="form-control" name="clave" id="exampleInputPassword1"
                             placeholder="Comporbacion de contraseña" required>
                     </div>
-
-                    <button type="submit" style="margin: 3px" class="btn btn-success">Crear</button>
+                    <p></p>
+                    <button type="submit" style="margin: 3px" class="btn btn-success">Crear cuenta</button>
                     <a href="/" style="margin: 3px" class="btn btn-danger">Volver al inicio</a>
                     <p></p>
                     <a href="/login" style="margin: 3px" class="btn btn-dark">¿Ya tienes una cuenta?</a>
+                    <p></p>
 
                 </form>
             </center>
