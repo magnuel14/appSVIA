@@ -1,6 +1,4 @@
-require('dotenv').config(); // this is important!
-module.exports = {
-
+{
     "development": {
         "DB_USERNAME": "m322qbj5apwckt2p",
         "DB_PASSWORD": "lin2bj1s9xvic84w",
@@ -17,4 +15,4 @@ module.exports = {
     }
 
 
-};
+}
