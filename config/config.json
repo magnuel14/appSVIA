@@ -1,0 +1,17 @@
+{
+    "development":{
+        "username": "root",
+        "password":"pato1412",
+        "database": "appVIA",
+        "host": "localhost",
+        "dialect": "mysql"       
+    },
+    "staging":{
+        "username": "root",
+        "password":"pato1412",
+        "database": "appVIA",
+        "host": "localhost",
+        "dialect": "mysql"
+    }
+  
+}

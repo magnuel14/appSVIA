@@ -1,8 +1,15 @@
 var express = require('express');
-//solo para vizulizar fragmentos
-var visucontrol= require('../controlador/vi_frag');
-var visu= new visucontrol();
 var router = express.Router();
+var passport = require('passport');
+//cuenta
+var cuenta = require('../controllers/cuentaController');
+var cuentaController = new cuenta();
+//temporal
+var visucontrol= require('../controllers/vi_frag');
+var visu= new visucontrol();
+//usuario
+var usuario =require('../controllers/personaController');
+var personacontrolller = new usuario();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -11,18 +18,101 @@ router.get('/', function (req, res, next) {
       fragmentos: 'Principal/inicio'});
 
 });
-//direccionamiento para los fragmentos
-// el direccionamiento cuena e 3 partes
-//segun la peticion sera get o post, este caso solo queremos ver un fragmentoasi que va get
-//  /Direccion, hace referencia a como se nombra al link 
-// visu.visu.verFragmento, se llama a la varibale antes creada y 
-//se le asigna el nombre de la funcion ver fragmento, este debe esxitir en la clase instanciada
-//router.get('/Direccion', visu.verFragmento);
-router.get('/usuario', visu.verUsu);
-router.get('/login', visu.verlogin);
-router.get('/register', visu.verRegister);
+//
 router.get('/rcamera', visu.verCamera);
 
+
+//
+//funcion de autentificacion
+var auth = function middleWare(req, res, next) {
+  if (req.isAuthenticated()) {
+      next();
+  } else {
+      req.flash("err_cred", "Inicia sesion !!!");
+      res.redirect('/iniciar_sesion');
+  }
+};
+//---------INICIO----------//
+/**
+ * Vista para iniciar Sesion
+ * @section Inicio
+ *  @type  get
+*  @param {solicitud} req 
+ *  @url /iniciar_sesion
+ *  @param  {respuesta} res
+ */
+router.get('/login', cuentaController.verlogin);
+/**
+ * Vista para regsitrar usaurio
+ * @section Inicio
+ *  @type  get
+*  @param {solicitud} req 
+ *  @url /registrar
+ *  @param  {respuesta} res
+ */
+router.get('/register', cuentaController.verRegister);
+/**
+ * Registro de usuario
+ * @section Inicio
+ *  @type  post
+*  @param {solicitud} req 
+ *  @url /registrar
+ *  @param  {respuesta} res
+ */
+router.post('/registrar', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/register'
+}));
+/**
+ * Inicio de Sesión
+ * @section Inicio
+ *  @type  post
+*  @param {solicitud} req 
+ *  @url /iniciar_sesion
+ *  @param  {respuesta} res
+ */
+router.post('/iniciar_sesion', passport.authenticate('local-signin', {
+    successRedirect: '/usuario',
+    failureRedirect: '/login'
+}));
+/**
+ * Cerrar Sesión
+ * @section Inicio
+ *  @type  get
+*  @param {solicitud} req 
+ *  @url /cerrar_sesion
+ *  @param  {respuesta} res
+ */
+router.get('/cerrar_sesion', cuentaController.cerrar);
+//--------USUARIO----------//
+/**
+ * Vista del incio del usario
+ * @section Usuario
+ *  @type  get
+*  @param {solicitud} req 
+ *  @url /user_info
+ *  @param  {respuesta} res
+ */
+router.get('/usuario',auth, visu.verIncioUsu);
+/**
+ * Vista Perfil de actualizacion
+ * @section Usuario
+ *  @type  get
+*  @param {solicitud} req 
+ *  @url /user_info
+ *  @param  {respuesta} res
+ */
+router.get('/user_info', auth, personacontrolller.verPersona);
+router.post('/user_config', auth, personacontrolller.editar);
+/**
+ * Actualizar foto del usuario
+ * @section Usuario
+ *  @type  post
+*  @param {solicitud} req 
+ *  @url /user_subir_imagen
+ *  @param  {respuesta} res
+ */
+router.post('/user_subir_imagen', auth, personacontrolller.guardarFoto);
 
 
 module.exports = router;

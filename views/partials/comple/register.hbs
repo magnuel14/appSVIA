@@ -1,47 +1,108 @@
-{{> Principal/headerU}}
+<script>
+    addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+  function mostrarContrasena() {
+        var tipo = document.getElementById("clave");
+        if (tipo.type == "password") {
+            tipo.type = "text";
+        } else {
+            tipo.type = "password";
+        }
+    }
+
+
+</script>
+
+<style>
+    .ocultar {
+        display: none;
+    }
+
+    .mostrar {
+        display: block;
+    }
+</style>
+{{> Principal/headerI}}
 <main id="main">
-    <div class="container"
-        style=" position: fixed;top: 0;bottom: 0; background-image: url(assets/img/fondosform/5.gif) ;background-size: 25%;">
-        <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+    <!--  -->
+    <div class="container" style="position: fixed;top: 0;bottom: 0; background-image: url(assets/img/fondosform/5.gif) ;background-size: 25%;">
+        <div class="container col-md-6" style="background-color: aliceblue ;border: ridge; ">
 
             <center>
-                <form id="formulario" method="POST" action="/">
-                    <div style="background-color: #040b14e7">
+                <div class="agile-field-txt">
+
+
+                    <h1 class="form-title">Registrarse</h1>
+
+                    {{#if error }}
+                    <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+
+                    {{#if info }}
+                    <div class="alert alert-primary">{{info}}</div>
+                    {{/if}}
+
+                </div>
+                <form method="POST" action="/registrar" id="formulario_registro">
+                    <div class="bg-dark">
                         <h1 class="text-light">Crear cuenta</h1>
                     </div>
-                    <p></p>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre</label>
-                        <input type="text" class="form-control" id="nombreU" name="nombreU" aria-describedby="nameHelp"
-                            placeholder="Nombre del usuario" required>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="nombres" id="nombres" title="Ingrese sus nombres" placeholder="Nombres"
+                            required />
                     </div>
-                   
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Apellido</label>
-                        <input type="text" class="form-control" id="apellidoU" name="apellidoU" aria-describedby="apeHelp"
-                            placeholder="Apellido del usuario" required>
+
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos"
+                            title="Ingrese sus apellidos" required />
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Correo electrónico </label>
-                        <input type="email" class="form-control" id="correo" name="correo" aria-describedby="emailHelp"
-                            placeholder="Ingrese el correo electrónico" required>
+                        <label for="name"><i class="zmdi zmdi-dock material-icons-name"></i></label>
+                        <input type="text" name="cedula" id="cedula" placeholder="Cedula" title="Ingrese su cedula"
+                            onblur="valide()" />
+                        <div id="mensaje"></div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña </label>
-                        <input type="password" class="form-control" name="clave" id="exampleInputPassword1"
-                            placeholder="Contraseña" required>
+                        <label for="name"><i class="zmdi zmdi-home material-icons-name"></i></label>
+                        <input type="text" name="direccion" id="direccion" placeholder="Direccion"
+                            title="Ingrese su direccion" required />
                     </div>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Vuelve a ingresar tu contraseña </label>
-                        <input type="password" class="form-control" name="clave" id="exampleInputPassword1"
-                            placeholder="Comporbacion de contraseña" required>
+                    <div class="form-group">
+                        <label><i class="zmdi zmdi-account-box-phone material-icons-name"></i></label>
+                        <input type="text" name="telefono" id="telefono" placeholder="Telefono"
+                            title="Ingrese su numero telefonico " required />
                     </div>
-                    <p></p>
-                    <button type="submit" style="margin: 3px" class="btn btn-success">Crear cuenta</button>
-                    <a href="/" style="margin: 3px" class="btn btn-danger">Volver al inicio</a>
-                    <p></p>
-                    <a href="/login" style="margin: 3px" class="btn btn-dark">¿Ya tienes una cuenta?</a>
-                    <p></p>
+                    <div class="form-group">
+                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                        <input type="email" name="correo" id="correo" placeholder="Correo" title="Ingrese su correo"
+                            required />
+                    </div>
+                    <div id="msg"></div>
+
+                    <div class="form-group">
+                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="clave" id="clave" placeholder="Contraseña"
+                            title="Ingrese su contraseña" required />
+                    </div>
+
+                    <div class="form-button">
+
+                        <input type="submit" name="signup" id="signin" style="margin: 3px"
+                            class="btn btn-success btn-xs" value="Registrarse" />
+                        <button class="btn btn-info" type="button" onclick="mostrarContrasena()">Show</button>
+
+                    </div>
+
+                    <a href="/" style="margin: 3px" class="btn btn-danger btn-xs">Volver al inicio</a>
+
+                    <a href="/login" style="margin: 3px" class="btn btn-dark btn-xs">¿Ya tienes una cuenta?</a>
 
                 </form>
             </center>

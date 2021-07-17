@@ -1,30 +1,70 @@
-{{> Principal/headerU}}
+<script>
+    addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+</script>
+<script>
+    function mostrarContrasena() {
+        var tipo = document.getElementById("clave");
+        if (tipo.type == "password") {
+            tipo.type = "text";
+        } else {
+            tipo.type = "password";
+        }
+    }
+
+</script>
+
+{{> Principal/headerI}}
+
 <main id="main">
     <div class="container"
         style="position: fixed;top: 0;bottom: 0; background-image: url(assets/img/fondosform/4.gif) ;background-size: 25%;">
         <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
 
             <center>
-                <form id="formulario" method="POST" action="/">
-                    <div style="background-color: #040b14e7" >
-                        <h1 class="text-light">Datos de la cuenta</h1>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Correo electronico </label>
-                        <input type="email" class="form-control" id="correo" name="correo" aria-describedby="emailHelp"
-                            placeholder="Ingrese el correo electrónico" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña </label>
-                        <input type="password" class="form-control" name="clave" id="exampleInputPassword1"
-                            placeholder="Ingrese su contraseña" required>
-                    </div>
+                <div class="agile-field-txt">
+                    {{#if error }}
+                    <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
 
-                    <button type="submit" style="margin: 3px" class="btn btn-primary">Inicio sesion</button>
+                    {{#if info }}
+                    <div class="alert alert-primary">{{info}}</div>
+                    {{/if}}
+
+                </div>
+
+                <form id="formulario_login" method="POST" action="/iniciar_sesion">
+                    <div class="bg-dark" style="background-color:  #040b14e7;">
+                        <h1 class="text-light">DATOS DE LA CUENTA</h1>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fa fa-user"></i></label>
+                        <input type="email" name="correo" id="correo" placeholder="Correo" title="Ingrese su correo"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="pass"><i class="fa fa-lock"></i></label>
+                        <input type="password" name="clave" id="clave" placeholder="Contraseña"
+                            title="Ingrese su contraseña" required />
+                        <button class="btn btn-info" type="button" onclick="mostrarContrasena()">Show</button>
+                    </div>
+                    <div class="w3ls-login  w3l-sub">
+
+                    </div>
+                    <div class="w3ls-login  w3l-sub">
+
+                        <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary"
+                            value="Iniciar sesión" />
+                    </div>
                     <a href="/" style="margin: 3px" class="btn btn-danger">Volver al inicio</a>
                     <p></p>
-                    <a href="/register" style="margin: 3px;" class="btn btn-dark">¿Aun no estas registrado?</a>
-                    <p></p>
+                    <a href="/register" style="margin: 3px" class="btn btn-dark">¿Aun no estas registrado?</a>
+
                 </form>
             </center>
         </div>

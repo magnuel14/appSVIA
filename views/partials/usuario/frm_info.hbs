@@ -1,0 +1,279 @@
+<!-- ============================================================== -->
+<!-- Validacion de los formularios  -->
+<!-- ============================================================== -->
+<script>
+    $(document).ready(function () {
+        $("#formulario_editar").validate({
+            rules: {
+                nombre: {
+                    required: true,
+                    minlength: 4
+                },
+                apellido: {
+                    required: true,
+                    minlength: 4
+                },
+                fono: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                clave: {
+                    required: true,
+                    minlength: 4
+                },
+                nueva_clave: {
+                    required: true,
+                    minlength: 4
+                },
+                confirmacion_clave: {
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                nombre: {
+                    required: "Ingrese su nombre",
+                    minlength: "Minimo 4 caractares"
+                },
+                apellido: {
+                    required: "Ingrese su apellido",
+                    minlength: "Minimo 4 caractares"
+                },
+                fono: {
+                    required: "Ingrese su telefono",
+                    minlength: "Son 10 caractares",
+                    maxlength: "Son 10 caractares"
+                },
+                clave: {
+                    required: "Ingrese su contraña",
+                    minlength: "Minimo 4 caractares"
+                },
+                nueva_clave: {
+                    required: "Ingrese su nueva contraña",
+                    minlength: "Minimo 4 caractares"
+                },
+                confirmacion_clave: {
+                    required: "Repita su nueva contraña",
+                    minlength: "Minimo 4 caractares"
+                }
+            }
+        });
+    });
+</script>
+<!--==========================
+ CONFIGURACION DEL USUARIO
+============================-->
+<section id="faq">
+    <div class="container">
+        <div class="section-header">
+            <div id="faq-list" class="wow fadeInUp">
+                <div class="section-title">
+                    <img src="images/personaPerfil/{{usuario.foto}}" style="width: 150px; height: 150px; border-radius: 100%;"> 
+                    <a data-toggle="collapse" href="#foto" style="font-size: 50%;" id="subirFoto">Subir Foto</a>
+                    <div id="foto" class="collapse" >
+                        <form action="/user_subir_imagen" method="POST" class="section-title" style="font-size: 40%" enctype="multipart/form-data">
+                            <input type="hidden" value="0" id="external_imagen" name="external_foto"/>
+                            <div class="form-group form-check">
+                                <input type="file" name="archivo" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" style="font-size: 80%">Subir Foto Perfil</button>
+                        </form>
+                    </div>
+                    <div style="font-size: 25px">
+                        {{nombre}}
+                        <a  id="editar" class="btn btn-danger"  href="#" style="font-size: 50%">Editar</a>
+                        <a id="cancelar" class="btn btn-warning" href="#" style="font-size: 50%">Cancelar</a>
+                    </div>
+                </div>
+            </div >
+        </div>
+        <div id="faq-list" class="wow fadeInUp">
+            <!-- VISTAS-->
+            <!--tabla-->
+            <div id="vista">
+                {{#if error}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 23%; font-size: 80%">
+                    {{error}}!!
+                    <button type="button" class="btn btn-danger" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                {{#if info}}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 23%; font-size: 80%">
+                    {{info}}!!
+                    <button type="button" class="btn btn-success" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                <table class="table" >
+                    <tbody>  
+                        <tr>
+                            <th scope="col">Nombres y Apellidos</th>
+                            <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Dirección</th>
+                            <td>{{usuario.direccion}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Correo</th>
+                            <td>{{usuario.email}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="col">Telefono/Celular</th>
+                            <td>{{usuario.telefono}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--tabla-->
+
+            <div  id="vista_editar" class="collapse" data-parent="#faq-list">
+                <!--formulario con los datos a editar-->
+                <form method="POST" action="/user_config" id="formulario_editar">
+                    <div class="form-group">
+                        <!--tabla-->
+                        <table class="table">
+                            <tbody> 
+                                <tr>
+                                    <th scope="col">Nombres y Apellidos</th>
+                                    <td>
+                                        <div class="form-inline">
+                                            <div class="form-group mb-2">
+                                                <input type="text" class="form-control" name="nombre" id="nombre">
+                                            </div>
+                                            <div class="form-group mx-sm-3 mb-2">
+                                                <input type="text" class="form-control" name="apellido" id="apellido">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Dirección</th>
+                                    <td><input type="text" class="form-control" name="direccion" id="direccion"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Correo</th>
+                                    <td><input type="email" class="form-control" name="email" id="email"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Telefono/Celular</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="fono" id="fono">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Escriba su contraseña para conforma cambios
+                                        <a  id="editar_clave" class="btn-link" href="#" style="font-size: 80%">Editar Clave</a>
+                                        <a  id="cancelar_clave" class="btn-link" href="#" style="font-size: 80%">Cancelar</a>
+                                    </th>
+                                    <td><input type="password" class="form-control" name="clave" placeholder="Contraseña" id="clave"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <!--tabla-->
+                    </div>
+
+                    <div id="vista_clave" class="collapse" data-parent="#faq-list">
+                        <input type="hidden" value="0" name="external_cuenta" id="external_cuenta">
+                        <table class="table">
+                            <tr>
+                                <th scope="col">Nueva Contraseña</th>
+                                <td><input type="password" class="form-control" name="nueva_clave" placeholder="Nueva Contraseña" id="nueva_clave" ></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Repetir Contraseña nueva</th>
+                                <td ><input type="password" class="form-control" name="confirmacion_clave" placeholder="Repetir Contraseña nueva" id="confirmacion_clave" >
+                                    <br>
+                                    <p id="confir"></p>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <button type="submit" class="btn btn-success" >Guardar Cambios</button>
+                </form>
+                <!-- fin de formulario con los datos a editar-->
+            </div>
+            <!-- VISTAS-->
+        </div>
+    </div>
+</section>
+<!-- Fin de Config -->
+<script>
+    $(document).ready(function () {
+        $('#cancelar').hide();
+        $('#cancelar_clave').hide();
+        //metodo para mostrar vistas de edicion
+        $('#editar').click(function () {
+            $('#vista').hide();
+            $('#editar').hide();
+            $('#vista_editar').show();
+            $('#cancelar').show();
+            listarFormulario();
+        });
+        //metodo para cancelar la edicion
+        $('#cancelar').click(function () {
+            $('#vista').show();
+            $('#editar').show();
+            $('#vista_editar').hide();
+            $('#cancelar').hide();
+        });
+        //metodo para editarclave
+        $('#editar_clave').click(function () {
+            $('#editar_clave').hide();
+            $('#external_cuenta').val('1');
+            $('#vista_clave').show();
+            $('#cancelar_clave').show();
+        });
+        //metodo para cancelar la edicion de clave
+        $('#cancelar_clave').click(function () {
+            $('#editar_clave').show();
+            $('#external_cuenta').val('0');
+            $('#vista_clave').hide();
+            $('#cancelar_clave').hide();
+        });
+        //metodo para saber que usuario va a subir foto 
+        $('#subirFoto').click(function () {
+            $('#external_imagen').val('{{usuario.external_id}}');
+        });
+        //metodo para verificar si la nueva clave esta bien 
+        $('#confirmacion_clave').keyup(function () {
+            claveIgual();
+        });
+    });
+    //lisatr datos para editar 
+    function listarFormulario() {
+        $('#nombre').val('{{usuario.nombre}}');
+        $('#apellido').val('{{usuario.apellido}}');
+        $('#nombre').val('{{usuario.nombre}}');
+        $('#direccion').val('{{usuario.direccion}}');
+        $('#email').val('{{usuario.email}}');
+        $('#fono').val('{{usuario.telefono}}');
+    }
+
+    function claveIgual() {
+        var nueva_clave = $('#nueva_clave').val();
+        var confirmacion_clave = $('#confirmacion_clave').val();
+        console.log(nueva_clave + " " + confirmacion_clave);
+        var html = '';
+        if (nueva_clave === confirmacion_clave) {
+            html += '<strong class="alert alert-success">Muy Bien</strong>';
+        } else {
+            html += '<strong class="alert alert-danger">No coiciden</strong>';
+        }
+        $('p#confir').html(html);
+    }
+
+</script>
+<style>
+
+    #formulario_editar label.error {
+        color: red;
+    }
+</style>
