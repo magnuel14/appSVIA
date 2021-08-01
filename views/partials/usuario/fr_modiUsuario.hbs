@@ -1,0 +1,168 @@
+{{> usuario/headerModiUsuario}}
+<main id="main">
+    <div class="container">
+        <div class="container"
+            style="position: top: 0;bottom: 0; background-image: url(/assets/img/fondosform/11.gif) ;background-size: 25%;">
+
+
+
+            <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+
+                <center>
+                    <div class="agile-field-txt">
+
+
+                        <h1 class="form-title">Modifica tu Informacion</h1>
+
+                        {{#if error }}
+                        <div class="alert alert-danger">{{error}}</div>
+                        {{/if}}
+
+                        {{#if info }}
+                        <div class="alert alert-primary">{{info}}</div>
+                        {{/if}}
+
+                    </div>
+                    <form method="POST" action="/modificar_infoUsu" id="formulario_usuario" autocomplete="off">
+                        <div class="bg-dark">
+                            <h1 class="text-light">Informacionde Usuario</h1>
+                        </div>
+                        <div class="form-group">
+                            <input type="" style="display: block;" name="external" id="external" value="{{exU}}"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+
+                            <input type="text" name="nombres" value="{{nomU}}" id="nombres" title="Ingrese sus nombres"
+                                placeholder="Nombres" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="apellidos" value="{{apeU}}" id="apellidos" placeholder="Apellidos"
+                                title="Ingrese sus apellidos" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-dock material-icons-name"></i></label>
+                            <input type="text" name="cedula" value="{{ceduU}}" id="cedula" placeholder="Cedula"
+                                title="Ingrese su cedula" onblur="valide()" />
+                            <div id="mensaje"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-home material-icons-name"></i></label>
+                            <input type="text" name="direccion" value="{{direU}}" id="direccion" placeholder="Direccion"
+                                title="Ingrese su direccion" required />
+                        </div>
+                        <div class="form-group">
+                            <label><i class="zmdi zmdi-account-box-phone material-icons-name"></i></label>
+                            <input type="text" name="telefono" value="{{teleU}}" id="telefono" placeholder="Telefono"
+                                title="Ingrese su numero telefonico " required />
+                        </div>
+
+                        <div class="form-button">
+
+                            <input type="submit" name="signup" id="signin" style="margin: 3px"
+                                class="btn btn-success btn-xs" value="Modificar" />
+
+                        </div>
+
+
+                    </form>
+                </center>
+            </div>
+            <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+                <center>
+                    <form method="POST" action="/modificar_claUsu" id="formulario_cuenta" autocomplete="off">
+                        <div class="bg-dark">
+                            <h1 class="text-light">Informacionde de cuenta</h1>
+                        </div>
+                        <div class="form-group">
+                            <input type="" style="display: block;" name="external_cuenta" id="external_cuenta" value="{{exUC}}"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="zmdi zmdi-email"></i></label>
+                            <input autocomplete="off" type="email" name="correo" value="{{correU}}" id="correo"
+                                placeholder="Correo" title="Ingrese su correo" readonly />
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="password" name="claveNueva" id="claveNueva"
+                                placeholder="Ingrese su nueva contraseña" 
+                                title="Ingrese su nueva contraseña" required />
+                            <p></p>
+                            <input type="password" name="claveNuevaV" id="claveNuevaV"
+                                placeholder="Verifique su contraseña" title="Verifique su contraseña" required />
+
+                        </div>
+
+                        <div class="form-button">
+
+                            <input type="submit" name="signup" id="signin" style="margin: 3px"
+                                class="btn btn-success btn-xs" value="Modificar" />
+                            <button class="btn btn-info" type="button" onclick="mostrarContrasena()">Show</button>
+
+                        </div>
+
+
+                    </form>
+                </center>
+            </div>
+            <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+                <center>
+                    <form id="formularioFoto" enctype="multipart/form-data" method="POST" action="/foPerfil_usu">
+                        <div class="bg-dark">
+                            <h1 class="text-light">Sube una foto de usuario</h1>
+                        </div>
+                        <div class="form-group">
+                            <input type="" style="display: block;" name="external1" id="external1" value="{{exU}}"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Seleccione la Imagen a subir</label><br>
+                            <input type="file" id="archivo" name="archivo" /><br>
+                            <br>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success" value="Subir foto" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </center>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</main>
+<script>
+
+    addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+    function mostrarContrasena() {
+        var tipo = document.getElementById("claveNueva");
+        var tipo1 = document.getElementById("claveNuevaV");
+
+        if (tipo.type == "password") {
+            tipo.type = "text";
+        } else {
+            tipo.type = "password";
+        }
+        if (tipo1.type == "password") {
+            tipo1.type = "text";
+        } else {
+            tipo1.type = "password";
+        }
+    }
+</script>

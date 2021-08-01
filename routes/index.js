@@ -5,19 +5,27 @@ var passport = require('passport');
 var cuenta = require('../controllers/cuentaController');
 var cuentaController = new cuenta();
 //temporal
-var visucontrol= require('../controllers/vi_frag');
-var visu= new visucontrol();
+var visucontrol = require('../controllers/vi_frag');
+var visu = new visucontrol();
 //usuario
-var usuario =require('../controllers/personaController');
+var usuario = require('../controllers/personaController');
 var personacontrolller = new usuario();
-
+//utilidades
+var utilidades = require('../controllers/utilidades');
+//wntorno
+var entorno = require('../controllers/entornoController');
+var entornoController = new entorno();
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
-  res.render('index', {title: 'Vision artificial para tu seguridad',
-      fragmentos: 'Principal/inicio'});
+    res.render('index', {
+        title: 'Vision artificial para tu seguridad',
+        fragmentos: 'Principal/inicio'
+    });
 
 });
+//
+
 //
 router.get('/rcamera', visu.verCamera);
 
@@ -25,13 +33,15 @@ router.get('/rcamera', visu.verCamera);
 //
 //funcion de autentificacion
 var auth = function middleWare(req, res, next) {
-  if (req.isAuthenticated()) {
-      next();
-  } else {
-      req.flash("err_cred", "Inicia sesion !!!");
-      res.redirect('/iniciar_sesion');
-  }
+    if (req.isAuthenticated()) {
+        next();
+
+    } else {
+        req.flash("err_cred", "Inicia sesion !!!");
+        res.redirect('/login');
+    }
 };
+
 //---------INICIO----------//
 /**
  * Vista para iniciar Sesion
@@ -73,7 +83,8 @@ router.post('/registrar', passport.authenticate('local-signup', {
  */
 router.post('/iniciar_sesion', passport.authenticate('local-signin', {
     successRedirect: '/usuario',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
 }));
 /**
  * Cerrar Sesión
@@ -93,7 +104,7 @@ router.get('/cerrar_sesion', cuentaController.cerrar);
  *  @url /user_info
  *  @param  {respuesta} res
  */
-router.get('/usuario',auth, visu.verIncioUsu);
+router.get('/usuario', auth, visu.verIncioUsu);
 /**
  * Vista Perfil de actualizacion
  * @section Usuario
@@ -102,17 +113,77 @@ router.get('/usuario',auth, visu.verIncioUsu);
  *  @url /user_info
  *  @param  {respuesta} res
  */
-router.get('/user_info', auth, personacontrolller.verPersona);
-router.post('/user_config', auth, personacontrolller.editar);
+router.get('/verModimiau/:external',auth,personacontrolller.VerUsuarioEditar);
 /**
- * Actualizar foto del usuario
+ * Actualizar info del usuario
  * @section Usuario
  *  @type  post
 *  @param {solicitud} req 
  *  @url /user_subir_imagen
  *  @param  {respuesta} res
  */
-router.post('/user_subir_imagen', auth, personacontrolller.guardarFoto);
+router.post('/modificar_infoUsu',auth,personacontrolller.modificarDatos);
+/**
+ * Actualizar clave del usuario
+ * @section Usuario
+ *  @type  post
+*  @param {solicitud} req 
+ *  @url /user_subir_imagen
+ *  @param  {respuesta} res
+ */
+router.post('/modificar_claUsu',auth,personacontrolller.modificarCuenta);
+/**
+ * Actualizar info del foto
+ * @section Usuario
+ *  @type  post
+*  @param {solicitud} req 
+ *  @url /user_subir_imagen
+ *  @param  {respuesta} res
+ */
+router.post('/foPerfil_usu', auth, personacontrolller.foto_Perfil);
+/**
+ * Ver entornos
+ *
+ */
+/**
+ *Crear entorno
+ * @section Entorno
+ *  @type  post
+ */
+router.post('/crear_entorno', auth, entornoController.guardarEntorno);
+/**
+*Cargar entorno en la tabla de inicio
+* @section Entorno
+*  @type  get
+*/
+router.get('/cargar_entorno', auth, entornoController.cargarEntornos);
+/**
+*Cargar fragmento de modificar entorno
+* @section Entorno
+*  @type  get
+*/
+router.get('/cargar_entornoModi/:external', auth, entornoController.cargarEntornoseditar);
+/**
+*Modificar entorno
+* @section Entorno
+*  @type  post
+*/
+router.post('/modificar_entorno', auth, entornoController.editarEntorno);
+/**
+*Eliminar entorno
+* @section Entorno
+*  @type  post
+*/
+router.get('/eliminar_entorno/:external', auth, entornoController.eliminarEntorno);
+/**
+*Visualizar entorno especifico entorno
+* @section Entorno
+*  @type  post
+*/
+
+router.get('/verEntornomiau/:external',auth,entornoController.visuEntorno);
+
+
 
 
 module.exports = router;

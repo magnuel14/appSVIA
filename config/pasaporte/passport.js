@@ -39,7 +39,7 @@ module.exports = function (passport, cuenta, persona, rol) {
         },
         function (req, email, password, done) {
             //codigo para registrar el usuario
-            console.log("estoy entrando");
+            //console.log("estoy entrando");
 
             var generateHash = function (password) {
 
@@ -64,7 +64,7 @@ module.exports = function (passport, cuenta, persona, rol) {
 
 
                     }).then(function (rol) {
-                        console.log("Datos el usario:procesando");
+                          //console.log("Datos el usario:procesando");
                         if (rol) {
                             var dataPersona =
                             {
@@ -72,10 +72,8 @@ module.exports = function (passport, cuenta, persona, rol) {
                                 nombre: req.body.nombres,
                                 correo: req.body.correo,
                                 cedula: req.body.cedula,
-                                telefono: req.body.telefono,
                                 external_id: uuidv4(),
                                 direccion: req.body.direccion,
-                                fecha_nacimiento: req.body.fecha_nacimiento,
                                 foto: 'sin_foto',
                                 id_rol: rol.id,
                                 estado: true
@@ -84,10 +82,10 @@ module.exports = function (passport, cuenta, persona, rol) {
                                 if (!newPersona) {
 
                                     return done(null, false);
-                                    console.log("No se a creado la persona: " + newPersona.id);
+                                      //console.log("No se a creado la persona: " + newPersona.id);
                                 }
                                 if (newPersona) {
-                                    console.log("Se ha creado la persona: " + newPersona.id);
+                                      //console.log("Se ha creado la persona: " + newPersona.id);
 
                                     var dataCuenta = {
                                         correo: email,
@@ -98,14 +96,14 @@ module.exports = function (passport, cuenta, persona, rol) {
                                     };
                                     Cuenta.create(dataCuenta).then(function (newCuenta, created) {
                                         if (newCuenta) {
-                                            console.log("Se ha creado la cuenta: " + newCuenta.id);
+                                              //console.log("Se ha creado la cuenta: " + newCuenta.id);
                                             return done(null, newCuenta, {
                                                 message: req.flash('crear', 'Su cuenca se ha creado')
 
                                             });
                                         }
                                         if (!newCuenta) {
-                                            console.log("cuenta no se pudo crear");
+                                              //console.log("cuenta no se pudo crear");
                                             return done(null, false,{
                                                 message: req.flash('error_q', 'Su cuenca no se puedo crear, revise bien si informacion no sea imbecil')
 
@@ -151,11 +149,11 @@ module.exports = function (passport, cuenta, persona, rol) {
                 }
 
                 var userinfo = cuenta.get();
-                console.log(userinfo);
+                //console.log(userinfo);
                 return done(null, userinfo);
 
             }).catch(function (err) {
-                console.log("Error:", err);
+                  //console.log("Error:", err);
                 return done(null, false, { message: req.flash('err_cred', 'Cuenta erronea') });
             });
         }

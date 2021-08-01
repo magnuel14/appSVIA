@@ -42,17 +42,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'modelos')));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'js')));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //modelos
 var models = require('./models');
-models.sequelize.sync().then(() => {
-  console.log('Base de Datos conectada');
-}).catch(err => {
-  console.log(err, "No se conecto a la BD");
-});
+//models.sequelize.sync().then(() => {
+  //console.log('Base de Datos conectada');
+//}).catch(err => {
+  //console.log(err, "No se conecto a la BD");
+//});
 // fin de modelos
 
 //insert
@@ -61,11 +65,6 @@ require('./controllers/datos/insert_rol');
 
 //load passport strategies
 require('./config/pasaporte/passport.js')(passport, models.cuenta, models.persona, models.rol);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  res.status(404).render('404', { titulo: "Pagina no encontrada" });
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

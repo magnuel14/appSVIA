@@ -34,7 +34,8 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING(100)
         }
 
-    }, {freezeTableName: true,
+    }, {
+        freezeTableName: true,
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'
     });
@@ -43,8 +44,12 @@ module.exports = function (sequelize, Sequelize) {
     });
     Persona.associate = function (models) {
         models.persona.hasOne(models.cuenta, {
-            foreignKey: 'id_persona'});
+            foreignKey: 'id_persona'
+        });
+        models.persona.hasMany(models.entorno, {
+            foreignKey: 'id_persona'
+        });
     };
-   
+
     return Persona;
 };

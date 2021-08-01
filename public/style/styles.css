@@ -1,0 +1,78 @@
+.page-container1 {
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 20px;
+  padding-left: 280px;
+  display: inline-flex !important;
+}
+
+@media only screen and (max-width : 992px) {
+  .page-container1 {
+    padding-left: 0;
+    display: flex !important;
+  }
+}
+
+#navbar1 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.center-content1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.side-by-side1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-by-side1 >* {
+  margin: 0 5px;
+}
+
+.bold1 {
+  font-weight: bold;
+}
+
+.margin-sm {
+  margin: 5px;
+}
+
+.margin1 {
+  margin: 20px;
+}
+
+.button-sm {
+  padding: 0 10px !important;
+}
+
+.pad-sides-sm {
+  padding: 0 8px !important;
+}
+
+
+
+#overlay, .overlay1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#facesContainer canvas1 {
+  margin: 10px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background: #26a69a;
+    border: 1px solid gray;
+    cursor: pointer;
+    color: #fff;
+    border-radius: .2em;
+}

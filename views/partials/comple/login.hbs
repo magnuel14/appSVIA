@@ -22,52 +22,52 @@
 {{> Principal/headerI}}
 
 <main id="main">
-    <div class="container"
-        style="position: fixed;top: 0;bottom: 0; background-image: url(assets/img/fondosform/4.gif) ;background-size: 25%;">
-        <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+    <div class="container">
 
-            <center>
-                <div class="agile-field-txt">
-                    {{#if error }}
-                    <div class="alert alert-danger">{{error}}</div>
-                    {{/if}}
+        <div class="container"
+            style="position: fixed;top: 0;bottom: 0; background-image: url(assets/img/fondosform/4.gif) ;background-size: 25%;">
+            <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
 
-                    {{#if info }}
-                    <div class="alert alert-primary">{{info}}</div>
-                    {{/if}}
+                <center>
+                    <div class="agile-field-txt">
+                        {{#if error }}
+                        <div class="alert alert-danger">{{error}}</div>
+                        {{/if}}
 
-                </div>
-
-                <form id="formulario_login" method="POST" action="/iniciar_sesion">
-                    <div class="bg-dark" style="background-color:  #040b14e7;">
-                        <h1 class="text-light">DATOS DE LA CUENTA</h1>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><i class="fa fa-user"></i></label>
-                        <input type="email" name="correo" id="correo" placeholder="Correo" title="Ingrese su correo"
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <label for="pass"><i class="fa fa-lock"></i></label>
-                        <input type="password" name="clave" id="clave" placeholder="Contraseña"
-                            title="Ingrese su contraseña" required />
-                        <button class="btn btn-info" type="button" onclick="mostrarContrasena()">Show</button>
-                    </div>
-                    <div class="w3ls-login  w3l-sub">
+                        {{#if info }}
+                        <div class="alert alert-primary">{{info}}</div>
+                        {{/if}}
 
                     </div>
-                    <div class="w3ls-login  w3l-sub">
 
-                        <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary"
-                            value="Iniciar sesión" />
-                    </div>
-                    <a href="/" style="margin: 3px" class="btn btn-danger">Volver al inicio</a>
-                    <p></p>
-                    <a href="/register" style="margin: 3px" class="btn btn-dark">¿Aun no estas registrado?</a>
+                    <form id="formulario_login" method="POST" action="/iniciar_sesion">
+                        <div class="bg-dark" style="background-color:  #040b14e7;">
+                            <h1 class="text-light">DATOS DE LA CUENTA</h1>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fa fa-user"></i></label>
+                            <input type="email" name="correo" id="correo" placeholder="Correo" title="Ingrese su correo"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="fa fa-lock"></i></label>
+                            <input type="password" name="clave" id="clave" placeholder="Contraseña"
+                                title="Ingrese su contraseña" required />
+                            <button class="btn btn-info" type="button" onclick="mostrarContrasena()">Show</button>
+                        </div>
 
-                </form>
-            </center>
+                        <div class="w3ls-login  w3l-sub">
+
+                            <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary"
+                                value="Iniciar sesión" />
+                        </div>
+                        <a href="/" style="margin: 3px" class="btn btn-danger">Volver al inicio</a>
+                        <p></p>
+                        <a href="/register" style="margin: 3px" class="btn btn-dark">¿Aun no estas registrado?</a>
+
+                    </form>
+                </center>
+            </div>
         </div>
-
     </div>
 </main>

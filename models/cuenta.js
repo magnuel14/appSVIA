@@ -34,12 +34,6 @@ module.exports = function (sequelize, Sequelize) {
     Cuenta.belongsTo(Persona, {
         foreignKey: 'id_persona'
     });
-    Cuenta.associate = function (models) {
-
-        models.cuenta.hasMany(models.entorno, {
-            foreignKey: 'id_cuenta'
-        });
-    };
 
     return Cuenta;
 };

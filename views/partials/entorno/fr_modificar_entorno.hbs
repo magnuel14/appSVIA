@@ -1,0 +1,51 @@
+{{> entorno/headerModiUEntorno}}
+
+<main id="main">
+    <div class="container"
+        style="position: fixed;top: 0;bottom: 0; background-image: url(/assets/img/fondosform/10.gif) ;background-size: 25%;">
+        <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+            <center>
+                <div class="agile-field-txt">
+                    {{#if error }}
+                    <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+
+                    {{#if info }}
+                    <div class="alert alert-primary">{{info}}</div>
+                    {{/if}}
+
+                </div>
+
+                <form id="formulario_modi" method="POST" action="/modificar_entorno">
+                    <div class="bg-dark" style="background-color:  #040b14e7;">
+                        <h1 class="text-light">DATOS DEl ENTORNO</h1>
+                    </div>
+                    <div class="form-group">
+                        <input type="" style="display: none;" name="external" id="external" value="{{entoEcter}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="nombre" id="nombre" value="{{entoNom}}"
+                            title="Ingrese el nombre del entorno" placeholder="Nombre entorno" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="direccion" id="direccion" value="{{entoDire}}" placeholder="Direccion"
+                            title="Ingrese la direccion del entorno" required />
+                    </div>
+
+                    <div class="w3ls-login  w3l-sub">
+
+                        <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary"
+                            value="Modificar entorno" />
+                    </div>
+                    <p></p>
+                    <a href="/usuario" style="margin: 3px" class="btn btn-dark">Regresar</a>
+
+                </form>
+            </center>
+        </div>
+    </div>
+
+</main>

@@ -1,12 +1,257 @@
 {{> usuario/headerU}}
 
-
 <main id="main">
+    <div class="container" style="margin-top: 20px;">
+        
+        <div id="success-alert" class="agile-field-txt">
+            {{#if error }}
+            <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
 
-    <div id="vista">
+            {{#if info }}
+            <div class="alert alert-success">{{info}}</div>
+            {{/if}}
 
-      
- 
+        </div>
+    </div>
+    <div id="myModal2" style="display:none">
+
+
+        <div class="container" style="margin-top: 20px;">
+            <div class="panel panel-primary">
+                <div class="card-header alert-danger" align="center">
+                    <h3 id="titulo">Informacion de usuario</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive-xl">
+
+                        <table id="tablaUsuariosInfo" class="table table-striped">
+                            <tbody id="cuerpo" align="center">
+                                <tr>
+                                    <img style="width:150px !important; height:175px !important" src="images/personaPerfil/{{foto}}">
+                                </tr>
+                                <tr>
+                                    <td>Nombre: {{nombre}}</td>
+                                    <td>Cedula: {{cedula}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Direccion {{direccion}}</td>
+                                    <td>Numero de telfono: {{telefono}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="/verModimiau/{{external_id}}" class="btn btn-success" name="botonesNotas">Editar
+                            informacióndel usuario</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 20px;">
+        <div class="panel panel-primary">
+            <div class="card-header alert-primary" align="center">
+                <h3 id="titulo">Sus entornos</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive-xl">
+                    <table id="tablaUsuarios" class="table table-striped">
+                        <thead id="cabezera" align="center">
+                            <tr align="center">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Direccion</th>
+                                <th scope="col">Ver entorno</th>
+                                <th scope="col">Editar entorno</th>
+                                <th scope="col">Eliminar entorno</th>
+
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <div id="myModal" class="modal">
+
+        <div style="position:absolute ;top: 0;bottom: 0; background-image: url(assets/img/fondosform/12.gif) ;background-size: 5%;"
+            class="modal-content">
+
+
+            <center>
+                <span class="close">&times;</span>
+
+                <div class="agile-field-txt">
+                    {{#if error }}
+                    <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+
+                    {{#if info }}
+                    <div class="alert alert-primary">{{info}}</div>
+                    {{/if}}
+
+                </div>
+
+                <form id="formulario_login" method="POST" action="/crear_entorno">
+                    <div class="bg-dark" style="background-color:  #040b14e7;">
+                        <h1 class="text-light">Crea tu entorno</h1>
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="nombre" id="nombre" title="Ingrese el nombre del entorno"
+                            placeholder="Nombre entorno" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="direccion" id="direccion" placeholder="Direccion"
+                            title="Ingrese la direccion del entorno" required />
+                    </div>
+
+                    <div class="w3ls-login  w3l-sub">
+
+                        <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary"
+                            value="Crear entorno" />
+                    </div>
+
+                </form>
+            </center>
+        </div>
+    </div>
+
+
+
 </main>
+<!-- Funcion para aprecer el modal de crear el entorno -->
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<!-- Funcion para aprecer el modal de info de usuario -->
+
+<!-- Estilo del modal -->
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% 25%;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 3px solid #888;
+        width: 70%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: black;
+        float: left;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: red;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+
+    function buscar(id) {
+        var url = "http://localhost:8080/cargar_entorno";
+
+        $.ajax({
+            url: url,
+            data: 'id=' + id,
+            success: function (data, textStatus, jqXHR) {
+
+                var html = '';
+                $.each(data, function (index, item) {
+                    console.log(data);
+                    html += '<tr>';
+                    html += '<td>' + item.nombre + '</td>';
+                    html += '<td>' + item.direccion + '</td>';
+                    html += '<td>' + '<a href="/verEntornomiau/' + item.external_id + '" class="btn btn-secondary" name="">Ver Entorno</a>' + '</td>';
+                    html += '<td>' + '<a href="/cargar_entornoModi/' + item.external_id + '"  class="btn btn-success" name="">Editar Entorno</a>' + '</td>';
+                    html += '<td>' + '<a href="/eliminar_entorno/' + item.external_id + '" class="btn btn-danger"> Eliminar entorno</a>' + '</td>';
+                    html += '</tr>';
+
+                });
+                $("#tablaUsuarios tbody").html(html);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //  console.log(jqXHR.responseText);
+            }
+        });
+    }
+    $(document).ready(function () {
+        var esternalU = '';
+        var id = $("#idp").val();
+        console.log(id);
+        buscar(id);
+    });
+</script>
+<script>
+
+    function cambia(a) {
+        var id1 = document.getElementById(a);
+        id1.style.display = (id1.style.display == 'block') ? 'none' : 'block';
+    }
+
+</script>

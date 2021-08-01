@@ -1,6 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
-    var cuenta = require('../models/cuenta');
-    var Cuenta = new cuenta(sequelize, Sequelize);
+    var persona = require('../models/persona');
+    var Persona = new persona(sequelize, Sequelize);
     var Entorno = sequelize.define('entorno', {
         id: {
             autoIncrement: true,
@@ -24,8 +24,8 @@ module.exports = function (sequelize, Sequelize) {
         updatedAt: 'fecha_modificacion'
     });
 
-    Entorno.belongsTo(Cuenta, {
-        foreignKey: 'id_cuenta'
+    Entorno.belongsTo(Persona, {
+        foreignKey: 'id_persona'
     });
     Entorno.associate = function (models) {
 
