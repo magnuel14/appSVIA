@@ -1,0 +1,56 @@
+{{> entorno/headerModGrupoen}}
+
+<main id="main">
+    <div class="container"
+        style="position: fixed;top: 0;bottom: 0; background-image: url(/assets/img/fondosform/13.gif) ;background-size: 25%;">
+        <div class="container col-md-6" style="background-color: aliceblue ;border: ridge;">
+            <center>
+                <span class="close">&times;</span>
+                <div class="agile-field-txt">
+                    {{#if error }}
+                    <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+
+                    {{#if info }}
+                    <div class="alert alert-primary">{{info}}</div>
+                    {{/if}}
+
+                </div>
+                <form id="formulario_grupoEn" method="POST" action="/modificar_grupo">
+                    <div class="bg-dark" style="background-color:  #040b14e7;">
+                        <h1 class="text-light">Edita tu grupo</h1>
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" style="display: none;" name="exterEn" id="exterEn" value="{{externalID}}"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" style="display: none;" name="enID" id="enID" value="{{eternalGru}}"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="nombreG" id="nombreG" value="{{nombregru}}" title="Nombre del grupo"
+                            placeholder="Nombre del grupo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="descripcion" id="descripcion" value="{{descrigru}}"
+                            placeholder="Descripcion del grupo" title="Descripcion del grupo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="foto" id="foto" style="display: none;" value="sin foto" required />
+                    </div>
+                    <div class="w3ls-login  w3l-sub">
+
+                        <input type="submit" name="signin" style="margin: 3px" class="btn btn-primary" value="Editar" />
+                    </div>
+                </form>
+            </center>
+        </div>
+    </div>
+
+</main>

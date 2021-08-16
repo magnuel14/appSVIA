@@ -32,7 +32,7 @@ module.exports = function (sequelize, Sequelize) {
         models.entorno.hasMany(models.camara, {
             foreignKey: 'id_entorno'
         });
-        models.entorno.hasMany(models.personaEn, {
+        models.entorno.hasMany(models.grupoEn, {
             foreignKey: 'id_entorno'
         });
     };

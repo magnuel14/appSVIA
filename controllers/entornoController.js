@@ -73,6 +73,8 @@ class entornoController {
                     nombre: req.user.nombre,
                     idp: req.user.id,
                     foto: persona.foto,
+                    nomEntor: dataEn.nombre,
+                    externalID: dataEn.external_id,
 
                 });
             });
@@ -122,13 +124,15 @@ class entornoController {
                 where: { id: id_per }
             }).then(function (persona) {
                 res.render('index', {
-                    title: 'Moifica tu entorno',
+                    title: 'Tu entorno',
                     fragmentos: "entorno/entornoIn",
                     entoEcter: data.external_id,
                     nombre: req.user.nombre,
                     idp: req.user.id,
                     foto: persona.foto,
                     nomEntor: data.nombre,
+                    externalID: data.external_id,
+                    enID: data.id,
                     error: req.flash('error'),
                     info: req.flash('info')
 
@@ -136,6 +140,7 @@ class entornoController {
             });
         });
     }
+
 }
 module.exports = entornoController;
 

@@ -6,21 +6,17 @@
                     class="img-fluid rounded-circle">
             </a>
             <h1 class="text-light">{{nombre}}</h1>
-            <p></p>
-            <h1 class="text-light">Entorno</h1>
+            <input hidden style="display: none;" name="idp" id="idp" value="{{idp}}" readonly />
+
             <p></p>
             <h1 class="text-light">{{nomEntor}}</h1>
-            <input style="display: none;" name="idp" id="idp" value="{{idp}}" readonly />
-            <input style="display: none;" name="iden" id="iden" value="{{enID}}" readonly />
-
 
         </div>
         <nav id="navbar" class="nav-menu navbar">
             <ul>
-                <li><a href="#" id="myBtn" class="nav-link scrollto"><i class="bi bi-person-badge-fill"></i> <span>Agregar
-                            Grupo de entorno</span></a>
-                <li><a href="/usuario" class="nav-link scrollto"><i class="bi bi-house"></i> <span> Regresar a incio
-                            de usuario
+                <li><a href="/verEntornomiau/{{externalID}}" class="nav-link scrollto"><i class="bi bi-building"></i>
+                        <span> Regresar al
+                            entorno
                         </span></a>
                 <li><a href="/cerrar_sesion" class="nav-link scrollto"><i class="bi bi-arrow-right-square-fill"></i>
                         <span>Cerra sesion</span></a>

@@ -74,7 +74,7 @@ module.exports = function (passport, cuenta, persona, rol) {
                                 cedula: req.body.cedula,
                                 external_id: uuidv4(),
                                 direccion: req.body.direccion,
-                                foto: 'sin_foto',
+                                foto: '0.jpg',
                                 id_rol: rol.id,
                                 estado: true
                             };

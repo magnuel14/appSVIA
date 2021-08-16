@@ -53,9 +53,9 @@ app.use('/users', usersRouter);
 //modelos
 var models = require('./models');
 //models.sequelize.sync().then(() => {
-  //console.log('Base de Datos conectada');
+//console.log('Base de Datos conectada');
 //}).catch(err => {
-  //console.log(err, "No se conecto a la BD");
+//console.log(err, "No se conecto a la BD");
 //});
 // fin de modelos
 

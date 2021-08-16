@@ -1,45 +1,34 @@
+
 module.exports = function (sequelize, Sequelize) {
-    var entorno = require('../models/entorno');
+    var entorno = require('./entorno');
     var Entorno = new entorno(sequelize, Sequelize);
-    var Camara = sequelize.define('camara', {
+    var GrupoEn = sequelize.define('grupoEn', {
         id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
-        },
-        numero: {
-            type: Sequelize.INTEGER
-        },
-        direccionIp: {
+        }, nombre: {
             type: Sequelize.STRING(50)
         },
         descripcion: {
             type: Sequelize.TEXT
         },
+        foto: {
+            type: Sequelize.STRING(100)
+        },
         external_id: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4
         },
-
-    }, {
-        freezeTableName: true,
+        
+    }, {freezeTableName: true,
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'
     });
 
-    Camara.belongsTo(Entorno, {
+    GrupoEn.belongsTo(Entorno, {
         foreignKey: 'id_entorno'
     });
-    Camara.associate = function (models) {
 
-        models.camara.hasMany(models.videosse, {
-            foreignKey: 'id_camara'
-        });
-        models.camara.hasMany(models.fotocamara, {
-            foreignKey: 'id_camara'
-        });
-    };
-
-
-    return Camara;
+    return GrupoEn;
 };
