@@ -12,9 +12,12 @@ var usuario = require('../controllers/personaController');
 var personacontrolller = new usuario();
 //utilidades
 var utilidades = require('../controllers/utilidades');
-//wntorno
+//entorno
 var entorno = require('../controllers/entornoController');
 var entornoController = new entorno();
+//grupo
+var grupoEn = require('../controllers/grupoEnController');
+var grupoEnoController = new grupoEn();
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
@@ -182,8 +185,46 @@ router.get('/eliminar_entorno/:external', auth, entornoController.eliminarEntorn
 */
 
 router.get('/verEntornomiau/:external',auth,entornoController.visuEntorno);
-
-
-
-
+/**
+ * Grupos entorno
+ *
+ */
+/**
+ *Crear grupo
+ * @section Entorno
+ *  @type  post
+ */
+ router.post('/crear_grupoEn',auth,grupoEnoController.guardarGrupoEn);
+/**
+*Cargar grupo en la tabla de entornos
+* @section Grupos en
+*  @type  get
+*/
+router.get('/cargar_grupoEn',auth, grupoEnoController.cargarGrupoEn);
+/**
+*Cargar fragmento de modificar grupos
+* @section Entorno
+*  @type  get
+*/
+router.get('/cargar_grupoModi/:external',auth,grupoEnoController.cargarGrupoEneditar);
+/**
+*Modificar entorno
+* @section Entorno
+*  @type  post
+*/
+router.post('/modificar_grupo',auth,grupoEnoController.editarGrupoEn);
+/**
+*Eliminar entorno
+* @section Entorno
+*  @type  post
+*/
+router.get('/eliminar_grupo/:external/:externalGrupo', auth, grupoEnoController.eliminarGrupoEn);
+/**
+ * Subir foto del grupo
+ * @section gruposEn
+ *  @type  post
+*  @param {solicitud} req 
+ *  @param  {respuesta} res
+ */
+router.post('/grupo_Foto/:externalFoto/:externalGrupo', auth, grupoEnoController.foto_GrupoEn);
 module.exports = router;
