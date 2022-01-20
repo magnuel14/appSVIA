@@ -1,17 +1,13 @@
-//load bcrypt
 var bCrypt = require('bcrypt-nodejs');
 const uuidv4 = require('uuid/v4');
-
 module.exports = function (passport, cuenta, persona, rol) {
     var Cuenta = cuenta;
     var Persona = persona;
     var Rol = rol;
     var LocalStrategy = require('passport-local').Strategy;
-    //serialize
     passport.serializeUser(function (cuenta, done) {
         done(null, cuenta.id);
     });
-    // deserialize user 
     passport.deserializeUser(function (id, done) {
         Cuenta.findOne({ where: { id: id }, include: [{ model: Persona, include: { model: Rol } }] }).then(function (cuenta) {
             if (cuenta) {
@@ -28,9 +24,6 @@ module.exports = function (passport, cuenta, persona, rol) {
             }
         });
     });
-
-
-    //registro de usuario por passport
     passport.use('local-signup', new LocalStrategy(
         {
             usernameField: 'correo',
@@ -38,33 +31,24 @@ module.exports = function (passport, cuenta, persona, rol) {
             passReqToCallback: true
         },
         function (req, email, password, done) {
-            //codigo para registrar el usuario
-            //console.log("estoy entrando");
-
             var generateHash = function (password) {
 
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };
-            //verificar si el email no esta registrado
             Cuenta.findOne({
                 where: {
                     correo: email
                 }
             }).then(function (cuenta) {
                 if (cuenta) {
-
                     return done(null, false, {
                         message: req.flash('error_correo', 'El correo ya esta regisrado')
                     });
-
                 } else {
                     var userPassword = generateHash(password);
                     Rol.findOne({
                         where: { nombre: 'usuario' }
-
-
                     }).then(function (rol) {
-                          //console.log("Datos el usario:procesando");
                         if (rol) {
                             var dataPersona =
                             {
@@ -80,13 +64,9 @@ module.exports = function (passport, cuenta, persona, rol) {
                             };
                             Persona.create(dataPersona).then(function (newPersona, created) {
                                 if (!newPersona) {
-
-                                    return done(null, false);
-                                      //console.log("No se a creado la persona: " + newPersona.id);
+                                    return done(null, false);                           
                                 }
-                                if (newPersona) {
-                                      //console.log("Se ha creado la persona: " + newPersona.id);
-
+                                if (newPersona) {                                    
                                     var dataCuenta = {
                                         correo: email,
                                         clave: userPassword,
@@ -96,22 +76,16 @@ module.exports = function (passport, cuenta, persona, rol) {
                                     };
                                     Cuenta.create(dataCuenta).then(function (newCuenta, created) {
                                         if (newCuenta) {
-                                              //console.log("Se ha creado la cuenta: " + newCuenta.id);
                                             return done(null, newCuenta, {
                                                 message: req.flash('crear', 'Su cuenca se ha creado')
-
                                             });
                                         }
                                         if (!newCuenta) {
-                                              //console.log("cuenta no se pudo crear");
                                             return done(null, false,{
                                                 message: req.flash('error_q', 'Su cuenca no se puedo crear, revise bien si informacion no sea imbecil')
-
                                             });
                                         }
-
                                     });
-
                                 }
                             });
                         } else {
@@ -120,13 +94,10 @@ module.exports = function (passport, cuenta, persona, rol) {
                             });
                         }
                     });
-
                 }
             });
         }
     ));
-
-    //inicio de sesion
     passport.use('local-signin', new LocalStrategy(
         {
             usernameField: 'correo',
@@ -134,7 +105,6 @@ module.exports = function (passport, cuenta, persona, rol) {
             passReqToCallback: true
         },
         function (req, correo, clave, done) {
-            //codigo para registrar el usuario
             var Cuenta = cuenta;
             var isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);
@@ -143,17 +113,12 @@ module.exports = function (passport, cuenta, persona, rol) {
                 if (!cuenta) {
                     return done(null, false, { message: req.flash('err_cred', 'Cuenta no existe') });
                 }
-
                 if (!isValidPassword(cuenta.clave, clave)) {
                     return done(null, false, { message: req.flash('err_cred', 'Clave incorrecta') });
                 }
-
                 var userinfo = cuenta.get();
-                //console.log(userinfo);
                 return done(null, userinfo);
-
             }).catch(function (err) {
-                  //console.log("Error:", err);
                 return done(null, false, { message: req.flash('err_cred', 'Cuenta erronea') });
             });
         }

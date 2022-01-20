@@ -1,14 +1,9 @@
 'use strict';
-//variables de modelos
 var models = require('../models');
 var Persona = models.persona;
 var Entorno = models.entorno;
-//variablesgolbales
-var Entorno_id = '';//variable para almacenar el id del entorno a guardar
-var idPersona = 0; //variable global para almacenar el id de la persona
+var Entorno_id = '';
 class entornoController {
-
-    /*------------Guardar Entorno-----------------*/
     guardarEntorno(req, res) {
         var nombre = req.body.nombre;
         var direccion = req.body.direccion;
@@ -26,11 +21,6 @@ class entornoController {
             });
         });
     }
-    /*------------ Editar  Entorno -----------------*/
-    /**
-        * Este metodo me permite editar el nombrey direccion
-        * a un entorno
-        */
     editarEntorno(req, res) {
         var nombre = req.body.nombre;
         var direccion = req.body.direccion;
@@ -47,15 +37,6 @@ class entornoController {
             res.redirect('/usuario');
         });
     }
-
-    /*------------  visualizar Entorno editar-----------------*/
-    /**
-        * Este metodo me permite conocer los entornos
-        * Al hacer la consulta retorna un json
-        * @param {type} req
-        * @param {type} res
-        * @returns {undefined}
-        */
     cargarEntornoseditar(req, res) {
         var external = req.params.external;
         Entorno.findOne({ where: { external_id: external } }).then(function (dataEn) {
@@ -81,14 +62,6 @@ class entornoController {
 
         });
     }
-    /*------------  visualizar Entorno incio usuario-----------------*/
-    /**
-        * Este metodo me permite conocer los entornos
-        * Al hacer la consulta retorna un json
-        * @param {type} req
-        * @param {type} res
-        * @returns {undefined}
-        */
     cargarEntornos(req, res) {
         var idpersona = req.query.id;
         Entorno.findAll({
@@ -98,14 +71,6 @@ class entornoController {
             res.json(data);
         });
     }
-    /*------------ Eliminar entorno-----------------*/
-    /**
-        * Este metodo me permite conocer los entornos
-        * Al hacer la consulta retorna un json
-        * @param {type} req
-        * @param {type} res
-        * @returns {undefined}
-        */
     eliminarEntorno(req, res) {
         var external = req.params.external;
         Entorno.destroy({ where: { external_id: external } }).then(function (dt) {
@@ -135,7 +100,6 @@ class entornoController {
                     enID: data.id,
                     error: req.flash('error'),
                     info: req.flash('info')
-
                 });
             });
         });

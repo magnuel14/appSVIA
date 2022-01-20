@@ -1,23 +1,16 @@
 'use strict';
-//variables de modelos
 var models = require('../models');
 var uuid = require('uuid');
 var Persona = models.persona;
-var Cuenta = models.cuenta;
 var GrupoEn = models.grupoEn;
 var Entorno = models.entorno;
-//Subir Fto
 var formidable = require('formidable');
 var extensiones = ["jpg", "png", "gif"];
 var maxSize = 1 * 1024 * 1024;
 var fs = require('fs');
 var mv = require('mv');
-//fin de subir archivos
-//variablesgolbales
-var GrupoEn_id = '';//variable para almacenar el id del entorno a guardar
-var idPersona = 0; //variable global para almacenar el id de la persona
+var GrupoEn_id = '';
 class grupoEnController {
-    /*------------Guardar GrupoEn-----------------*/
     guardarGrupoEn(req, res) {
         var nombre = req.body.nombreG;
         var descripcion = req.body.descripcion;
@@ -29,7 +22,6 @@ class grupoEnController {
                 descripcion: descripcion,
                 foto: fotog,
                 id_entorno: entorno.id,
-
             }).then(function (newGrupoEn, created) {
                 if (GrupoEn) {
                     GrupoEn_id = newGrupoEn.id;
@@ -38,14 +30,6 @@ class grupoEnController {
             });
         });
     }
-    /*------------  visualizar Grupos incio entorno-----------------*/
-    /**
-        * Este metodo me permite conocer los grupos del entorno
-        * Al hacer la consulta retorna un json
-        * @param {type} req
-        * @param {type} res
-        * @returns {undefined}
-        */
     cargarGrupoEn(req, res) {
         var identorno = req.query.id;
         console.log(identorno);
@@ -56,17 +40,11 @@ class grupoEnController {
             res.json(data);
         });
     }
-    /*------------ Editar  Grupo -----------------*/
-    /**
-        * Este metodo me permite editar el nombre y descripcion
-        * a un grupo
-        */
     editarGrupoEn(req, res) {
         var nombre = req.body.nombreG;
         var descripcion = req.body.descripcion;
         var external1 = req.body.exterEn;
         var external = req.body.enID;
-
         GrupoEn.findOne({ where: { external_id: external } }).then(function (data) {
             data.nombre = nombre;
             data.descripcion = descripcion,
@@ -79,16 +57,8 @@ class grupoEnController {
             res.redirect("/verEntornomiau/" + external1);
         });
     }
-    /*------------  visualizar Grupo editar-----------------*/
-    /**
-        * Este metodo me permite conocer el Grupo
-        * @param {type} req
-        * @param {type} res
-        * @returns {undefined}
-        */
     cargarGrupoEneditar(req, res) {
         var external = req.params.external;
-
         GrupoEn.findOne({ where: { external_id: external } }).then(function (dataEn) {
             var id_ento = dataEn.id_entorno;
             Entorno.findOne({ where: { id: id_ento } }).then(function (entorno) {
@@ -105,12 +75,9 @@ class grupoEnController {
                         nombregru: dataEn.nombre,
                         descrigru: dataEn.descripcion,
                         eternalGru: dataEn.external_id,
-
                     });
                 });
-
             });
-
         });
     }
     eliminarGrupoEn(req, res) {
@@ -121,18 +88,10 @@ class grupoEnController {
 
         })
     }
-    /**
-         * Metodo permite guardar la imagen en la carpeta perfil 
-         * Guarda el nombre de la imagen en la base de datos
-         * @param {type} req
-         * @param {type} res
-         * @returns {undefined}
-         */
     foto_GrupoEn(req, res) {
         var form = new formidable.IncomingForm();
         var external = req.params.externalFoto;
         var external1 = req.params.externalGrupo;
-
         form.parse(req, function (err, fields, files) {
             if (files.archivo.size <= maxSize) {
                 console.log(files.archivo);

@@ -7,4 +7,4 @@ var Rol = models.rol;
             }));
         });
     };
-module.exports = insert_rol();
+insert_rol();
