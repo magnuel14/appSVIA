@@ -36,11 +36,11 @@ app.use(express.static(path.join(__dirname, 'js')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 var models = require('./models');
-//models.sequelize.sync().then(() => {
-//console.log('Base de Datos conectada');
-//}).catch(err => {
-//console.log(err, "No se conecto a la BD");
-//});
+models.sequelize.sync().then(() => {
+console.log('Base de Datos conectada');
+}).catch(err => {
+console.log(err, "No se conecto a la BD");
+});
 require('./controllers/datos/insert_rol');
 require('./config/pasaporte/passport.js')(passport, models.cuenta, models.persona, models.rol);
 app.use(function (req, res, next) {
